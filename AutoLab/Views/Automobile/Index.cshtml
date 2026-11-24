@@ -1,0 +1,81 @@
+@model List<Automobil>
+@{
+    ViewData["Title"] = "Automobile";
+}
+
+<h1>Automobile</h1>
+<p class="text-muted small">Pagina generată la @DateTime.Now.ToString("HH:mm:ss")</p>
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success">@TempData["Mesaj"]</p>
+}
+
+<form id="filtru" asp-action="Index" method="get" class="row g-3 align-items-center mb-3">
+    <div class="col-auto">
+        <input type="search" name="text" id="text" value="@ViewBag.Text"
+               class="form-control" placeholder="Marca sau modelul" />
+    </div>
+    <div class="col-auto">
+        <select name="filialaId" id="filialaId" asp-items="ViewBag.Filiale" class="form-select">
+            <option value="">Toate filialele</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <select name="caroserie" id="caroserie" asp-items="ViewBag.Caroserii" class="form-select">
+            <option value="">Toate caroseriile</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <div class="form-check">
+            <input type="checkbox" name="doarDisponibile" value="true" id="doarDisponibile"
+                   class="form-check-input" checked="@ViewBag.DoarDisponibile" />
+            <label for="doarDisponibile" class="form-check-label">doar disponibile</label>
+        </div>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Filtrează</button>
+        <a asp-action="Index" class="btn btn-link">Toate</a>
+    </div>
+    <div class="col-auto ms-auto">
+        <a asp-action="Adauga" class="btn btn-primary">Adaugă un automobil</a>
+    </div>
+</form>
+
+<div id="zonaTabel">
+    <partial name="_Tabel" model="Model" />
+</div>
+
+@section Scripts {
+    <script>
+        // Lecția 10: filtrul fără reîncărcarea paginii.
+        const formular = document.getElementById("filtru");
+        const zona = document.getElementById("zonaTabel");
+
+        function incarcaTabelul() {
+            const parametri = new URLSearchParams(new FormData(formular));
+            fetch("/Automobile/Lista?" + parametri.toString())
+                .then(function (raspuns) {
+                    if (!raspuns.ok) {
+                        throw new Error("Serverul a răspuns cu codul " + raspuns.status);
+                    }
+                    return raspuns.text();
+                })
+                .then(function (html) {
+                    zona.innerHTML = html;
+                })
+                .catch(function (eroare) {
+                    zona.innerHTML = "<p class='alert alert-danger'>" + eroare.message + "</p>";
+                });
+        }
+
+        formular.addEventListener("submit", function (e) {
+            e.preventDefault();
+            incarcaTabelul();
+        });
+        document.getElementById("filialaId").addEventListener("change", incarcaTabelul);
+        document.getElementById("caroserie").addEventListener("change", incarcaTabelul);
+        document.getElementById("doarDisponibile").addEventListener("change", incarcaTabelul);
+        document.getElementById("text").addEventListener("input", incarcaTabelul);
+    </script>
+}

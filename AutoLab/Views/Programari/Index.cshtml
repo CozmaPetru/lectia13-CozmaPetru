@@ -1,0 +1,24 @@
+@model List<Programare>
+@{
+    ViewData["Title"] = "Programări";
+}
+
+<h1>Programări la test-drive: <span id="numar">@Model.Count</span></h1>
+
+<table class="table table-striped w-auto" id="programari">
+    <thead>
+        <tr><th>Nr.</th><th>Clientul</th><th>Ziua</th><th>AutomobilId</th><th>Automobilul</th></tr>
+    </thead>
+    <tbody>
+        @foreach (Programare programare in Model)
+        {
+            <tr>
+                <td>@programare.Id</td>
+                <td>@programare.Nume</td>
+                <td>@programare.Ziua.Value.ToString("dd.MM.yyyy")</td>
+                <td>@programare.AutomobilId</td>
+                <td>@programare.Automobil.Marca @programare.Automobil.Modelul</td>
+            </tr>
+        }
+    </tbody>
+</table>

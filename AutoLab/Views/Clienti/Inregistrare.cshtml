@@ -1,0 +1,71 @@
+@model ContClient
+@{
+    ViewData["Title"] = "Cont nou";
+}
+
+<h1>Cont nou</h1>
+<p class="text-muted">Creează un cont ca să primești ofertele AutoLab.</p>
+
+<form asp-action="Inregistrare" method="post" class="col-md-7">
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Nume" class="form-label"></label>
+        <input asp-for="Nume" class="form-control" />
+        <span asp-validation-for="Nume" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label asp-for="Parola" class="form-label"></label>
+            <input asp-for="Parola" class="form-control" />
+            <span asp-validation-for="Parola" class="text-danger"></span>
+        </div>
+        <div class="col mb-3">
+            <label asp-for="ConfirmareParola" class="form-label"></label>
+            <input asp-for="ConfirmareParola" class="form-control" />
+            <span asp-validation-for="ConfirmareParola" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Localitate" class="form-label"></label>
+        <select asp-for="Localitate" asp-items="ViewBag.Localitati" class="form-select">
+            <option value="">— alege localitatea —</option>
+        </select>
+        <span asp-validation-for="Localitate" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="TipClient" class="form-label d-block"></label>
+        @foreach (string tip in ViewBag.TipuriClient)
+        {
+            <label class="form-check form-check-inline">
+                <input type="radio" asp-for="TipClient" value="@tip" class="form-check-input" />
+                @tip
+            </label>
+        }
+        <span asp-validation-for="TipClient" class="text-danger d-block"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AutomobileDorite" class="form-label"></label>
+        <select asp-for="AutomobileDorite" asp-items="ViewBag.Automobile" class="form-select" size="5"></select>
+        <div class="form-text">Ține apăsat Ctrl ca să alegi mai multe.</div>
+    </div>
+    <div class="form-check mb-2">
+        <input asp-for="Newsletter" class="form-check-input" />
+        <label asp-for="Newsletter" class="form-check-label"></label>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="AcordTermeni" class="form-check-input" />
+        <label asp-for="AcordTermeni" class="form-check-label"></label>
+        <span asp-validation-for="AcordTermeni" class="text-danger d-block"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Observatii" class="form-label"></label>
+        <textarea asp-for="Observatii" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Observatii" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Creează contul</button>
+</form>

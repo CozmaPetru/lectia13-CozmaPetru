@@ -1,0 +1,25 @@
+@model List<Automobil>
+
+<p class="text-muted">Automobile găsite: @Model.Count</p>
+
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelul</th>
+            <th>Anul</th>
+            <th>Prețul</th>
+            <th>Combustibilul</th>
+            <th>Caroseria</th>
+            <th>Filiala</th>
+            <th>Disponibil</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Automobil automobil in Model)
+        {
+            <partial name="_RandAutomobil" model="automobil" />
+        }
+    </tbody>
+</table>

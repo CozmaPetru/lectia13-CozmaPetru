@@ -1,0 +1,25 @@
+@model List<Automobil>
+@{
+    ViewData["Title"] = "Alege pentru comparare";
+}
+
+<h1>Alege automobilele de comparat</h1>
+
+<form asp-action="Compara" method="get">
+    <table class="table table-sm table-striped">
+        <thead><tr><th></th><th>Marca</th><th>Modelul</th><th>Anul</th><th>Prețul</th></tr></thead>
+        <tbody>
+            @foreach (Automobil automobil in Model)
+            {
+                <tr>
+                    <td><input type="checkbox" name="ids" value="@automobil.Id" class="form-check-input" /></td>
+                    <td>@automobil.Marca</td>
+                    <td>@automobil.Modelul</td>
+                    <td>@automobil.AnFabricatie</td>
+                    <td>@automobil.Pret.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Compară</button>
+</form>

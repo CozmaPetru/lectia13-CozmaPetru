@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Prioritatea surselor";
+}
+
+<h1>Prioritatea surselor</h1>
+
+<div class="card border-primary mb-3" id="primit">
+    <div class="card-header py-1 small fw-bold">Ce a primit acțiunea Prioritate(int id)</div>
+    <div class="card-body py-2 font-monospace">int id = <strong id="valoare">@ViewBag.Id</strong></div>
+</div>
+
+<partial name="_Sonda" />
+
+<div class="d-flex flex-wrap gap-2 mb-3">
+    <a id="doarQuery" class="btn btn-outline-secondary" href="/Legare/Prioritate?id=3">Doar query: ?id=3</a>
+    <a id="rutaQuery" class="btn btn-outline-secondary" href="/Legare/Prioritate/2?id=3">Rută și query: /2?id=3</a>
+    <form id="toate" method="post" action="/Legare/Prioritate/2?id=3" class="d-inline">
+        <input type="hidden" name="id" value="1" />
+        <button type="submit" class="btn btn-outline-primary">Formular, rută și query (POST)</button>
+    </form>
+    <form id="surse" method="post" action="/Legare/Surse/2?id=3" class="d-inline">
+        <input type="hidden" name="id" value="1" />
+        <button type="submit" class="btn btn-primary">Cu atributele [From…]</button>
+    </form>
+</div>

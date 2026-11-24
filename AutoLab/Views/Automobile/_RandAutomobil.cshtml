@@ -1,0 +1,19 @@
+@model Automobil
+
+<tr>
+    <td>@Html.Display("Marca")</td>
+    <td>@Html.Display("Modelul")</td>
+    <td>@Html.Display("AnFabricatie")</td>
+    <td>@Html.Display("Pret")</td>
+    <td>@Html.Insigna(Model.Combustibil)</td>
+    <td>@Html.Display("Caroserie")</td>
+    <td class="filiala">@Model.Filiala.Denumire</td>
+    <td>@Html.Display("EsteDisponibil")</td>
+    <td class="text-nowrap">
+        <a asp-action="Detalii" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-secondary">Detalii</a>
+        <a asp-action="Editeaza" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary">Editează</a>
+        <form asp-action="Sterge" asp-route-id="@Model.Id" method="post" class="d-inline">
+            <button type="submit" class="btn btn-sm btn-outline-danger">Șterge</button>
+        </form>
+    </td>
+</tr>

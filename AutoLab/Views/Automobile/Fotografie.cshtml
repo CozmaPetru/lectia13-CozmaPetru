@@ -1,0 +1,20 @@
+@model Automobil
+@{
+    ViewData["Title"] = "Fotografie";
+}
+
+<h1>Fotografia pentru @Model.Marca @Model.Modelul</h1>
+
+<form asp-action="Fotografie" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" class="mb-3">
+    <div class="mb-2">
+        <input type="file" name="fisier" accept=".jpg,.jpeg,.png" class="form-control" />
+        <span class="text-danger" id="eroare">@Html.ValidationMessage("fisier")</span>
+    </div>
+    <button type="submit" class="btn btn-primary">Încarcă</button>
+    <a asp-action="Detalii" asp-route-id="@Model.Id" class="btn btn-link">Înapoi</a>
+</form>
+
+@if (Context.Request.Method == "POST")
+{
+    <partial name="_Sonda" />
+}

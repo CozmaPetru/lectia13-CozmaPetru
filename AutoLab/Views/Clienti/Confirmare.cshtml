@@ -1,0 +1,31 @@
+@model ContClient
+@{
+    ViewData["Title"] = "Cont creat";
+}
+
+<h1>Contul a fost creat</h1>
+<p class="alert alert-success">Bine ai venit, @Model.Nume!</p>
+
+<table class="table w-auto">
+    <tr><th>E-mail</th><td>@Model.Email</td></tr>
+    <tr><th>Parola</th><td>@Model.Parola.Length caractere (nu se afișează)</td></tr>
+    <tr><th>Localitatea</th><td>@Model.Localitate</td></tr>
+    <tr><th>Tipul clientului</th><td>@Model.TipClient</td></tr>
+    <tr>
+        <th>Automobile</th>
+        <td>
+            @if (ViewBag.AutomobileAlese.Count == 0)
+            {
+                <span class="text-muted">niciunul ales</span>
+            }
+            @foreach (string nume in ViewBag.AutomobileAlese)
+            {
+                <span class="badge text-bg-light border">@nume</span>
+            }
+        </td>
+    </tr>
+    <tr><th>Oferte pe e-mail</th><td>@Html.Display("Newsletter")</td></tr>
+    <tr><th>Observații</th><td>@Model.Observatii</td></tr>
+</table>
+
+<p><a asp-controller="Automobile" asp-action="Index">Înapoi la automobile</a></p>

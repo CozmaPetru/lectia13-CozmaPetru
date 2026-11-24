@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Filiala";
+}
+
+<h1>Filiala din cookie</h1>
+
+<div class="card border-primary mb-3" id="primit">
+    <div class="card-header py-1 small fw-bold">Ce a primit acțiunea Filiala(string filiala)</div>
+    <div class="card-body py-2 font-monospace">string filiala = <strong id="valoare">@(ViewBag.Filiala == null ? "null" : ViewBag.Filiala)</strong></div>
+</div>
+
+<form asp-action="AlegeFiliala" method="post" class="d-flex gap-2 mb-3">
+    <button class="btn btn-outline-primary" type="submit" name="oras" value="Cahul">Cahul</button>
+    <button class="btn btn-outline-primary" type="submit" name="oras" value="Comrat">Comrat</button>
+    <a class="btn btn-outline-secondary" href="/Legare/Filiala?filiala=Ungheni">Adresă cu ?filiala=Ungheni</a>
+</form>
+
+<p class="small font-monospace">Cookie în cerere: @Context.Request.Cookies["filiala"]</p>
+<partial name="_Sonda" />

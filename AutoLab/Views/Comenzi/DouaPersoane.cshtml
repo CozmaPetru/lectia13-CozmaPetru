@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Doi parametri";
+    Persoana cumparator = ViewBag.Cumparator;
+    Persoana garant = ViewBag.Garant;
+}
+
+<h1>Doi parametri de același tip</h1>
+<p>Acțiunea este <code>DouaPersoane(Persoana cumparator, Persoana garant)</code>.</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="cuPrefix" method="post" asp-action="DouaPersoane" class="border rounded p-3 mb-3">
+            <h2 class="h6">Câmpuri cu prefix</h2>
+            <input name="cumparator.Nume" value="Ana Rusu" class="form-control mb-2" />
+            <input name="garant.Nume" value="Ion Lungu" class="form-control mb-2" />
+            <button type="submit" class="btn btn-primary">Trimite</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form id="faraPrefix" method="post" asp-action="DouaPersoane" class="border rounded p-3 mb-3">
+            <h2 class="h6">Un câmp fără prefix</h2>
+            <input name="Nume" value="Ana Rusu" class="form-control mb-2" />
+            <button type="submit" class="btn btn-primary">Trimite</button>
+        </form>
+    </div>
+</div>
+
+@if (cumparator != null)
+{
+    <div class="card border-primary mb-3" id="primit">
+        <div class="card-header py-1 small fw-bold">Ce a primit acțiunea</div>
+        <div class="card-body py-2 small font-monospace">
+            <div>cumparator.Nume = @cumparator.Nume</div>
+            <div>garant.Nume = @garant.Nume</div>
+        </div>
+    </div>
+    <partial name="_Sonda" />
+}

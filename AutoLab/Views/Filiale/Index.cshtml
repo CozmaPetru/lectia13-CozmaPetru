@@ -1,0 +1,39 @@
+@model List<Filiala>
+@{
+    ViewData["Title"] = "Filiale";
+}
+
+<h1>Filialele dealerului</h1>
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success" id="mesaj">@TempData["Mesaj"]</p>
+}
+@if (TempData["Eroare"] != null)
+{
+    <p class="alert alert-danger" id="eroare">@TempData["Eroare"]</p>
+}
+
+<table class="table table-striped w-auto" id="filiale">
+    <thead>
+        <tr><th>Filiala</th><th>Automobile</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (Filiala filiala in Model)
+        {
+            <tr>
+                <td>@filiala.Denumire</td>
+                <td class="numar">@filiala.Automobile.Count</td>
+                <td>
+                    <a asp-controller="Automobile" asp-action="Index" asp-route-filialaId="@filiala.Id"
+                       class="btn btn-sm btn-outline-secondary">Automobilele</a>
+                    <form asp-action="Sterge" asp-route-id="@filiala.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Șterge</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Adauga" class="btn btn-primary">Adaugă o filială</a>

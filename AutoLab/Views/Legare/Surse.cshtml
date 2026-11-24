@@ -1,0 +1,15 @@
+@{
+    ViewData["Title"] = "Atributele From";
+}
+
+<h1>Fiecare parametru își spune sursa</h1>
+
+<table class="table table-sm w-auto" id="surse">
+    <tr><th>[FromForm(Name = "id")] dinFormular</th><td>@ViewBag.DinFormular</td></tr>
+    <tr><th>[FromRoute(Name = "id")] dinRuta</th><td>@ViewBag.DinRuta</td></tr>
+    <tr><th>[FromQuery(Name = "id")] dinAdresa</th><td>@ViewBag.DinAdresa</td></tr>
+    <tr><th>[FromHeader(Name = "User-Agent")] browser</th><td class="small">@ViewBag.Browser</td></tr>
+</table>
+
+<partial name="_Sonda" />
+<a asp-action="Prioritate" class="btn btn-link">Înapoi</a>

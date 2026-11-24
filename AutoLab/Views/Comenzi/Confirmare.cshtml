@@ -1,0 +1,21 @@
+@model Comanda
+@{
+    ViewData["Title"] = "Comanda primită";
+}
+
+<h1>Comanda primită</h1>
+
+<div class="card border-primary mb-3" id="primit">
+    <div class="card-header py-1 small fw-bold">Ce a primit acțiunea Noua(Comanda comanda)</div>
+    <div class="card-body py-2 small font-monospace">
+        <div>comanda.AutomobilId = @Model.AutomobilId</div>
+        <div>comanda.Avans = @Model.Avans</div>
+        <div>comanda.Cumparator.Nume = @Model.Cumparator.Nume</div>
+        <div>comanda.Cumparator.Adresa.Oras = @Model.Cumparator.Adresa.Oras</div>
+        <div>comanda.Garant.Nume = @Model.Garant.Nume</div>
+        <div>comanda.Garant.Adresa.Oras = @Model.Garant.Adresa.Oras</div>
+    </div>
+</div>
+
+<partial name="_Sonda" />
+<a asp-action="Noua" class="btn btn-link">Altă comandă</a>

@@ -1,0 +1,88 @@
+@model Automobil
+@{
+    ViewData["Title"] = "Detalii";
+    Programare programareNoua = new Programare();
+    programareNoua.AutomobilId = Model.Id;
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success">@TempData["Mesaj"]</p>
+}
+
+<h1>@Model.Marca @Model.Modelul</h1>
+<p class="lead">Filiala: <strong id="filiala">@Model.Filiala.Denumire</strong></p>
+
+<div class="row">
+    <div class="col-md-7">
+        @Html.DisplayForModel()
+    </div>
+    <div class="col-md-5">
+        @if (Model.Fotografie != null)
+        {
+            <img id="fotografie" src="~/incarcari/@Model.Fotografie" alt="@Model.Marca @Model.Modelul"
+                 class="img-fluid rounded border mb-2" />
+        }
+        <p><a asp-action="Fotografie" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-sm">Încarcă o fotografie</a></p>
+    </div>
+</div>
+
+<div class="card my-3">
+    <div class="card-header fw-bold">Disponibilitatea, acum</div>
+    <div class="card-body">
+        <button type="button" id="btnStare" class="btn btn-outline-primary" data-adresa="/Automobile/Stare/@Model.Id">Verifică disponibilitatea</button>
+        <span id="stare" class="ms-3"></span>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header fw-bold">Programează un test-drive</div>
+    <div class="card-body" id="zonaTestDrive">
+        <partial name="_TestDrive" model="programareNoua" />
+    </div>
+</div>
+
+<p>
+    <a asp-controller="Clienti" asp-action="Inregistrare" asp-route-automobilId="@Model.Id" class="btn btn-primary">Mă interesează — creez cont</a>
+    <a asp-action="Index" class="btn btn-link">Înapoi la listă</a>
+</p>
+
+@section Scripts {
+    <script>
+        // Lecția 10: date JSON și formular trimis cu fetch.
+        const btnStare = document.getElementById("btnStare");
+        btnStare.addEventListener("click", function () {
+            fetch(btnStare.dataset.adresa)
+                .then(function (raspuns) {
+                    return raspuns.json();
+                })
+                .then(function (date) {
+                    let text = "indisponibil";
+                    if (date.esteDisponibil) {
+                        text = "disponibil";
+                    }
+                    document.getElementById("stare").textContent =
+                        text + " · programări: " + date.programari + " · ora " + date.ora;
+                });
+        });
+
+        const zonaTestDrive = document.getElementById("zonaTestDrive");
+        zonaTestDrive.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formular = e.target;
+            fetch(formular.action, { method: "POST", body: new FormData(formular) })
+                .then(function (raspuns) {
+                    if (raspuns.ok || raspuns.status === 400) {
+                        return raspuns.text();
+                    }
+                    throw new Error("Serverul a răspuns cu codul " + raspuns.status);
+                })
+                .then(function (html) {
+                    zonaTestDrive.innerHTML = html;
+                })
+                .catch(function (eroare) {
+                    zonaTestDrive.innerHTML = "<p class='alert alert-danger'>" + eroare.message + "</p>";
+                });
+        });
+    </script>
+}

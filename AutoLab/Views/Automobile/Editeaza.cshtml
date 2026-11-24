@@ -1,0 +1,81 @@
+@model Automobil
+@{
+    ViewData["Title"] = "Editează";
+}
+
+<h1>Editează: @Model.Marca @Model.Modelul</h1>
+
+<form asp-action="Editeaza" method="post" class="col-md-6">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Marca" class="form-label"></label>
+        <input asp-for="Marca" class="form-control" />
+        <span asp-validation-for="Marca" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Modelul" class="form-label"></label>
+        <input asp-for="Modelul" class="form-control" />
+        <span asp-validation-for="Modelul" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="AnFabricatie" class="form-label"></label>
+        <input asp-for="AnFabricatie" class="form-control" />
+        <span asp-validation-for="AnFabricatie" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Pret" class="form-label"></label>
+        @Html.Editor("Pret")
+        <span asp-validation-for="Pret" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DataInmatricularii" class="form-label"></label>
+        <input asp-for="DataInmatricularii" class="form-control" />
+        <span asp-validation-for="DataInmatricularii" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Kilometraj" class="form-label"></label>
+        <input asp-for="Kilometraj" class="form-control" />
+        <span asp-validation-for="Kilometraj" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Combustibil" class="form-label d-block"></label>
+        @foreach (string combustibil in ViewBag.Combustibili)
+        {
+            <label class="form-check form-check-inline">
+                <input type="radio" asp-for="Combustibil" value="@combustibil" class="form-check-input" />
+                @combustibil
+            </label>
+        }
+        <span asp-validation-for="Combustibil" class="text-danger d-block"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Caroserie" class="form-label"></label>
+        <select asp-for="Caroserie" asp-items="ViewBag.Caroserii" class="form-select">
+            <option value="">— alege caroseria —</option>
+        </select>
+        <span asp-validation-for="Caroserie" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="FilialaId" class="form-label"></label>
+        <select asp-for="FilialaId" asp-items="ViewBag.Filiale" class="form-select">
+            <option value="">— alege filiala —</option>
+        </select>
+        <span asp-validation-for="FilialaId" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <input asp-for="EsteDisponibil" class="form-check-input" />
+        <label asp-for="EsteDisponibil" class="form-check-label"></label>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descriere" class="form-label"></label>
+        <textarea asp-for="Descriere" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Descriere" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvează</button>
+    <a asp-action="Index" class="btn btn-link">Renunță</a>
+</form>
+
+@* Lecția 12: validarea în browser, cu aceleași reguli ca pe server. *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,46 @@
+@model List<Automobil>
+@{
+    ViewData["Title"] = "Tipuri simple";
+}
+
+<h1>Tipuri simple: filtrul</h1>
+
+<form method="get" asp-action="Simple" class="row g-3 align-items-center mb-3">
+    <div class="col-auto"><input name="an" value="@ViewBag.An" class="form-control" placeholder="Anul" /></div>
+    <div class="col-auto"><input name="pretMaxim" value="@ViewBag.PretMaxim" class="form-control" placeholder="Prețul maxim" /></div>
+    <div class="col-auto">
+        <div class="form-check">
+            <input type="checkbox" name="doarDisponibile" value="true" id="dd" class="form-check-input" checked="@ViewBag.DoarDisponibile" />
+            <label for="dd" class="form-check-label">doar disponibile</label>
+        </div>
+    </div>
+    <div class="col-auto"><button type="submit" class="btn btn-primary">Filtrează</button></div>
+</form>
+
+<div class="card border-primary mb-3" id="primit">
+    <div class="card-header py-1 small fw-bold">Ce a primit acțiunea</div>
+    <div class="card-body py-2 small font-monospace">
+        <div>int? an = @(ViewBag.An == null ? "null" : ViewBag.An)</div>
+        <div>decimal? pretMaxim = @(ViewBag.PretMaxim == null ? "null" : ViewBag.PretMaxim)</div>
+        <div>bool doarDisponibile = @ViewBag.DoarDisponibile</div>
+    </div>
+</div>
+
+<partial name="_Sonda" />
+
+<p>Automobile găsite: <strong id="numar">@Model.Count</strong></p>
+<table class="table table-sm table-striped">
+    <thead><tr><th>Marca</th><th>Modelul</th><th>Anul</th><th>Prețul</th><th>Disponibil</th></tr></thead>
+    <tbody>
+        @foreach (Automobil automobil in Model)
+        {
+            <tr>
+                <td>@automobil.Marca</td>
+                <td>@automobil.Modelul</td>
+                <td>@automobil.AnFabricatie</td>
+                <td>@automobil.Pret.ToString("N2")</td>
+                <td>@(automobil.EsteDisponibil ? "Da" : "Nu")</td>
+            </tr>
+        }
+    </tbody>
+</table>

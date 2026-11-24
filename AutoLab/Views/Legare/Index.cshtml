@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Laborator de legare";
+}
+
+<h1>Laborator de legare</h1>
+<p>Fiecare pagină arată ce a trimis browserul și ce a primit acțiunea.</p>
+
+<div class="list-group">
+    <a class="list-group-item list-group-item-action" asp-action="Simple">1. Tipuri simple: filtrul</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Comenzi" asp-action="Noua">2. Tipuri complexe și prefixe: comanda</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Comenzi" asp-action="DouaPersoane">2b. Doi parametri de același tip</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Automobile" asp-action="Alege">3. Masiv de valori: compararea</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Automobile" asp-action="Preturi">4. Listă de obiecte: prețurile</a>
+    <a class="list-group-item list-group-item-action" asp-action="Prioritate">5. Prioritatea surselor</a>
+    <a class="list-group-item list-group-item-action" asp-action="Filiala">6. Furnizorul propriu: filiala din cookie</a>
+    <a class="list-group-item list-group-item-action" asp-controller="Automobile" asp-action="Fotografie" asp-route-id="1">7. Încărcarea fișierului</a>
+</div>

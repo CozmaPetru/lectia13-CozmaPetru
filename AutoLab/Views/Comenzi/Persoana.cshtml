@@ -1,0 +1,17 @@
+@model Persoana
+@{
+    ViewData["Title"] = "O singură persoană";
+}
+
+<h1>@ViewBag.Rol</h1>
+
+<div class="card border-primary mb-3" id="primit">
+    <div class="card-header py-1 small fw-bold">Ce a primit acțiunea DoarGarant([Bind(Prefix = "Garant")] Persoana persoana)</div>
+    <div class="card-body py-2 small font-monospace">
+        <div>persoana.Nume = @Model.Nume</div>
+        <div>persoana.Telefon = @Model.Telefon</div>
+    </div>
+</div>
+
+<partial name="_Sonda" />
+<a asp-action="Noua" class="btn btn-link">Înapoi</a>
